@@ -3,10 +3,13 @@
 ## Supported Versions
 
 We provide security updates and support for the following versions of JellyNotes:
-| Version  | Supported|
-|----------|----------|
-| 1.x.x    | ✅ Yes   | 
-| 0.x.x    | ❌ No    | 
+| **Version** | **Supported** | **Release Date** | **Last Update** | **Notes**                   |
+|-------------|---------------|------------------|-----------------|-----------------------------|
+| **1.x.x**   | Yes           | January 2025     | March 2025      | Major update with new UI.   |
+| **0.x.x**   | No            | July 2024        | November 2024   | Deprecated and unsupported. |
+| **2.x.x**   | Yes           | March 2025       | April 2025      | Added AI-powered features.  |
+| **3.x.x**   | Yes           | June 2025        | TBD             | Coming soon with new tools. |
+
 
 ## Reporting a Vulnerability
 
@@ -34,8 +37,6 @@ To ensure the security of your JellyNotes app installation:
 - **Always update** to the latest version.
 
 - **Download** from trusted sources.
-
-- Use strong authentication methods if applicable.
 
 Thank you for helping us keep JellyNotes secure! 🚀
 
