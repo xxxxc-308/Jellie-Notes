@@ -3,18 +3,10 @@
 ## Supported Versions
 
 We provide security updates and support for the following versions of JellyNotes:
-
-Version
-
-Supported
-
-1.x.x
-
-✅ Yes
-
-0.x.x
-
-❌ No
+| Version  | Supported|
+|----------|----------|
+| 1.x.x    | ✅ Yes   | 
+| 0.x.x    | ❌ No    | 
 
 ## Reporting a Vulnerability
 
