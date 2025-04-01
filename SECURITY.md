@@ -18,7 +18,7 @@ We take security seriously. If you discover a vulnerability in JellyNotes, pleas
 #### How to report:
 - **Email:** security@cloudsurfe.com
 
-- **GitHub:** Open a security advisory in the JellyNotes repository (for responsible disclosure).
+- **GitHub:** Open a security advisory in the [JellyNotes repository](https://github.com/CloudSurfe/JellyNotes/security/advisories/new) (for responsible disclosure).
 
 ### Responsible Disclosure
 
