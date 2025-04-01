@@ -1,6 +1,6 @@
-Security Policy
+# Security Policy
 
-Supported Versions
+## Supported Versions
 
 We provide security updates and support for the following versions of JellyNotes:
 
@@ -16,7 +16,7 @@ Supported
 
 ❌ No
 
-Reporting a Vulnerability
+## Reporting a Vulnerability
 
 We take security seriously. If you discover a vulnerability in JellyNotes, please report it to us as soon as possible.
 
@@ -26,7 +26,7 @@ Email: security@cloudsurfe.com
 
 GitHub: Open a security advisory in the JellyNotes repository (for responsible disclosure).
 
-Responsible Disclosure
+### Responsible Disclosure
 
 We appreciate responsible disclosure and will work to resolve security issues promptly. We aim to:
 
@@ -36,7 +36,7 @@ Investigate and provide a fix within 7 days, depending on severity.
 
 Credit responsible disclosures in release notes (if requested).
 
-Security Best Practices
+## Security Best Practices
 
 To ensure the security of your JellyNotes app installation:
 
