@@ -31,13 +31,16 @@ capabilities to provide smart suggestions, reminders, and categorization for you
 ## Installation
 
 1. Clone the repository:
-```git clone https://github.com/CloudSurfe/JellyNotes.git```
+```
+git clone https://github.com/CloudSurfe/JellyNotes.git
+```
 
-2. Open the project in Android Studio.
 
-3. Sync Gradle and install dependencies.
+3. Open the project in Android Studio.
 
-4. Run the app on an emulator or physical device.
+4. Sync Gradle and install dependencies.
+
+5. Run the app on an emulator or physical device.
 
 ## Contributing
 
