@@ -62,9 +62,6 @@ class SettingsViewModel @Inject constructor(
 
             }
 
-            is SettingsEvent.SetDynamicTheming -> {
-
-            }
         }
 
     }

@@ -7,21 +7,13 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cloudsurfe.jellynotes.core.SettingsConstants
 import com.cloudsurfe.jellynotes.data.setting.SettingsDataStore
 import com.cloudsurfe.jellynotes.frontend.settings_screen.SettingsViewModel
+import com.cloudsurfe.jellynotes.ui.theme.JellyNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -40,28 +32,17 @@ class MainActivity : ComponentActivity() {
             )
         )
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { settingsViewModel.setKeepOnScreenCondition }
         setContent {
             val firstLaunch =
                 runBlocking { settingsDataStore.getBoolean(SettingsConstants.FIRST_LAUNCH) ?: true }
             val settingState = settingsViewModel.state.collectAsStateWithLifecycle()
-            val scope = rememberCoroutineScope()
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(androidx.compose.ui.graphics.Color.Red),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+            JellyNotesTheme(
+                darkMode = settingState.value.darkMode,
+                amoledMode = settingState.value.amoledTheme
             ) {
-                Text(text = firstLaunch.toString())
-                Button(
-                    onClick = {
-                        scope.launch {
-                            settingsDataStore.putBoolean(SettingsConstants.FIRST_LAUNCH, false)
-                        }
-                    }
-                ) {
-                    Text(text = "Set False")
-                }
+
             }
         }
     }
