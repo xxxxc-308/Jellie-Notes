@@ -1,59 +1,18 @@
 # JellyNotes
-
-JellyNotes is an AI-powered day planner and note-taking application designed to help you organize your
-thoughts, schedule tasks, and manage your workflow efficiently. Built using Kotlin, JellyNotes integrates AI
-capabilities to provide smart suggestions, reminders, and categorization for your notes and tasks.
-
-## Features
-
-- **AI-Powered Notes** – Automatically categorize and summarize notes.
-
-- **Task Management** – Set reminders, deadlines, and priorities for tasks.
-
-- **Seamless Cloud Sync** – Sync your notes securely across devices.
-
-- **Intelligent Search** – Quickly find notes using AI-driven search.
-
-- **Minimalist UI** – A clean and user-friendly interface for smooth navigation.
-
-## Tech Stack
-
-- **Language**: Kotlin
-
-- **Architecture**: MVI (Model-View-Intent)
-
-- **Database**: Room Database
-
-- **AI Integration**: NLP for note categorization
-
-- **Backend**: Django
-
-- **Cloud Storage**: PostgreSQL
-
-## Installation
-
-1. Clone the repository:
-```
-git clone https://github.com/CloudSurfe/JellyNotes.git
-```
+© 2025 Cloudsurfe. All rights reserved.
 
 
-3. Open the project in Android Studio.
+![Status](https://img.shields.io/badge/status-under_development-orange)
+![Platform](https://img.shields.io/badge/platform-Android-blue)
+![iOS](https://img.shields.io/badge/iOS-coming_soon-lightgrey) <br> ![F-Droid](https://img.shields.io/badge/F--Droid-planned-lightgrey)
+![License: GPL v3](https://img.shields.io/badge/license-GPL--3.0-blue) <br>
+![Issues](https://img.shields.io/github/issues/CloudSurfe/JellyNotes)
 
-4. Sync Gradle and install dependencies.
+JellyNotes is a smart, open-source task and note management app built by the [**CloudSurfe**](https://www.cloudsurfe.com) team. Designed to be both intuitive and powerful, it helps you stay organized, focused, and in control — whether you're capturing ideas, planning your day, or managing complex workflows. With features like intelligent reminders, recurring tasks, voice-to-text input, natural language parsing, and AI-driven prioritization, JellyNotes adapts to how you think. It’s more than a to-do list — it’s where your thoughts turn into action.
 
-5. Run the app on an emulator or physical device.
-
-## Contributing
-
-Contributions are welcome! Feel free to fork the repository, create a new branch, and submit a pull request.
+> **Currently available on Android**. iOS support is planned for a future release.
 
 ## License
 
-This project is licensed under the GPL-3.0 License. See the LICENSE file for details.
+This project is licensed under the [GNU General Public License v3.0 (GPL-3.0)](https://choosealicense.com/licenses/gpl-3.0/).  
 
-## Contact
-
-For any questions or suggestions, reach out to [CloudSurfe](www.cloudsurfe.com).
-
-© 2025 CloudSurfe. All rights reserved.

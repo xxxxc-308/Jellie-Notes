@@ -1,4 +1,4 @@
-package com.cloudsurfe.jellynotes.frontend.settings_screen
+package com.cloudsurfe.jellynotes.modules.presentation.settings_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -55,10 +55,6 @@ class SettingsViewModel @Inject constructor(
             }
 
             is SettingsEvent.SetDarkMode -> {
-
-            }
-
-            is SettingsEvent.SetAmoledTheme -> {
 
             }
 

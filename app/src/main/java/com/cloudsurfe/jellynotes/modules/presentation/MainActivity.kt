@@ -1,4 +1,4 @@
-package com.cloudsurfe.jellynotes.frontend
+package com.cloudsurfe.jellynotes.modules.presentation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cloudsurfe.jellynotes.core.SettingsConstants
 import com.cloudsurfe.jellynotes.data.setting.SettingsDataStore
-import com.cloudsurfe.jellynotes.frontend.settings_screen.SettingsViewModel
+import com.cloudsurfe.jellynotes.modules.presentation.settings_screen.SettingsViewModel
 import com.cloudsurfe.jellynotes.ui.theme.JellyNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
             val settingState = settingsViewModel.state.collectAsStateWithLifecycle()
             JellyNotesTheme(
                 darkMode = settingState.value.darkMode,
-                amoledMode = settingState.value.amoledTheme
             ) {
 
             }
