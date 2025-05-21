@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "JellyNotes"
 include(":app")
+include(":editor")
+include(":plugins")
