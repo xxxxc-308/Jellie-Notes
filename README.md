@@ -1,5 +1,5 @@
 
-# JellyNotes
+# Jellie Notes
 © 2025 Cloudsurfe. All rights reserved.
 
 
