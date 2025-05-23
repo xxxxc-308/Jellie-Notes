@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.1"
+agp = "8.10.0"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -7,14 +7,20 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.03.01"
-dagger-hilt = "2.56.1"
+composeBom = "2025.05.01"
+dagger-hilt = "2.56.2"
 dagger-hilt-compiler = "2.56.1"
-hilt = "2.56.1"
-ksp = "2.1.20-1.0.32"
-data-store = "1.1.4"
+hilt = "2.56.2"
+ksp = "2.1.20-2.0.0"
+data-store = "1.1.7"
 jetbrainsKotlinJvm = "2.1.20"
-
+uiautomator = "2.3.0"
+benchmarkMacroJunit4 = "1.3.4"
+baselineprofile = "1.3.4"
+profileinstaller = "1.4.1"
+onnxruntime-android = "1.17.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +40,12 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt-compiler" }
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "data-store" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
+onnxruntime-android = {group = "com.microsoft.onnxruntime", name = "onnxruntime-android", version.ref = "onnxruntime-android"}
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -42,4 +54,6 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-
+android-test = { id = "com.android.test", version.ref = "agp" }
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
+android-library = { id = "com.android.library", version.ref = "agp" }
