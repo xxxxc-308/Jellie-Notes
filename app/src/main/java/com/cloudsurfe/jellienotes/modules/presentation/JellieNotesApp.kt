@@ -1,20 +1,36 @@
 package com.cloudsurfe.jellienotes.modules.presentation
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import com.cloudsurfe.jellienotes.modules.navigation.Home
+import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberNavBackStack
 import com.cloudsurfe.jellienotes.modules.navigation.MainNavigation
-import com.cloudsurfe.jellienotes.modules.navigation.OnBoarding
 import com.cloudsurfe.jellienotes.modules.presentation.setting_screen.SettingViewModel
 
 @Composable
 fun JellieNotesApp(
-    firstLaunch: Boolean,
+    startDestination: NavKey,
     settingSViewModel: SettingViewModel,
     finishActivity: () -> Unit
 ) {
-    MainNavigation(
-        startDestination = if (firstLaunch) OnBoarding else Home,
-        settingViewModel = settingSViewModel,
-        finishActivity = finishActivity
-    )
+
+    val backstack = rememberNavBackStack(startDestination)
+
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) { paddingValues ->
+        MainNavigation(
+            modifier = Modifier
+                .padding(paddingValues)
+                .navigationBarsPadding(),
+            backstack = backstack,
+            settingViewModel = settingSViewModel,
+            finishActivity = finishActivity
+        )
+    }
 }

@@ -11,6 +11,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cloudsurfe.jellienotes.core.SettingsConstants
 import com.cloudsurfe.jellienotes.data.setting.SettingsDataStore
+import com.cloudsurfe.jellienotes.modules.navigation.Home
+import com.cloudsurfe.jellienotes.modules.navigation.OnBoarding
 import com.cloudsurfe.jellienotes.modules.presentation.JellieNotesApp
 import com.cloudsurfe.jellienotes.modules.presentation.setting_screen.SettingViewModel
 import com.cloudsurfe.jellienotes.ui.theme.JellyNotesTheme
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
                 darkMode = settingState.value.darkMode,
             ) {
                 JellieNotesApp(
-                    firstLaunch = firstLaunch,
+                    startDestination = if (firstLaunch) OnBoarding else Home,
                     settingSViewModel = settingsViewModel,
                     finishActivity = {
                         finish()

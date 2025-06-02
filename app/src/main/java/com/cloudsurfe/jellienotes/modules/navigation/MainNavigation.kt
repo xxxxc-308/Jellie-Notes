@@ -2,6 +2,8 @@ package com.cloudsurfe.jellienotes.modules.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
@@ -17,20 +19,18 @@ import com.cloudsurfe.jellienotes.modules.presentation.setting_screen.SettingVie
 
 @Composable
 fun MainNavigation(
-    startDestination: NavKey,
+    modifier: Modifier = Modifier,
+    backstack: NavBackStack,
     settingViewModel: SettingViewModel,
     finishActivity: () -> Unit
 ) {
-    val backstack = rememberNavBackStack(startDestination)
 
     NavDisplay(
+        modifier = modifier,
         backStack = backstack,
         onBack = { backstack.removeLastOrNull() },
         entryProvider = entryProvider {
             entry<OnBoarding> {
-                BackHandler {
-                    finishActivity()
-                }
                 OnBoardingScreen(
                     onClick = {
                         when (it) {
