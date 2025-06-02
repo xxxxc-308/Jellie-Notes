@@ -5,11 +5,13 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.googleServices)
 }
 
 android {
     namespace = "com.cloudsurfe.jellienotes"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.cloudsurfe.jellienotes"
@@ -79,9 +81,25 @@ dependencies {
     implementation(libs.datastore.preferences)
 
     // Splash Screen
-    implementation("androidx.core:core-splashscreen:1.2.0-beta01")
+    implementation(libs.androidx.core.splashscreen)
 
     // Performance & Baseline Profiles
     implementation(libs.androidx.profileinstaller)
     baselineProfile(project(":baselineprofile"))
+
+    // Jetpack Navigation 3
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.material3.adaptive.navigation3)
+
+    // Kotlinx Serialization
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Firebase
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.google.auth)
 }
