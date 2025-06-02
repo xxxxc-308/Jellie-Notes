@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -95,4 +96,10 @@ dependencies {
     // Kotlinx Serialization
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
+
+    // Firebase
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.google.auth)
 }
