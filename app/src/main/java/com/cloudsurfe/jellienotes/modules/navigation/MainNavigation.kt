@@ -1,13 +1,14 @@
 package com.cloudsurfe.jellienotes.modules.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.cloudsurfe.jellienotes.modules.presentation.home_screen.HomeScreen
 import com.cloudsurfe.jellienotes.modules.presentation.onboarding_screen.OnBoardingScreen
@@ -51,7 +52,13 @@ fun MainNavigation(
                     }
                 )
             }
-            entry<Setting> {
+            entry<Setting>(
+                metadata = NavDisplay.transitionSpec {
+                    sharedXTransitionIn(initial = { it }) togetherWith ExitTransition.None
+                } + NavDisplay.popTransitionSpec {
+                    EnterTransition.None togetherWith sharedXTransitionOut(target = { it })
+                }
+            ) {
                 SettingScreen(
                     onClick = {
                         backstack.add(Plugin)
