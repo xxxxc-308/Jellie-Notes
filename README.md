@@ -9,7 +9,7 @@
 ![License: GPL v3](https://img.shields.io/badge/license-GPL--3.0-blue) <br>
 ![Issues](https://img.shields.io/github/issues/CloudSurfe/JellyNotes)
 
-JellyNotes is a smart, open-source task and note management app built by the [**CloudSurfe**](https://www.cloudsurfe.com) team. Designed to be both intuitive and powerful, it helps you stay organized, focused, and in control — whether you're capturing ideas, planning your day, or managing complex workflows. With features like intelligent reminders, recurring tasks, voice-to-text input, natural language parsing, and AI-driven prioritization, JellyNotes adapts to how you think. It’s more than a to-do list — it’s where your thoughts turn into action.
+JellieNotes is a smart, open-source notes app by [**Cloudsurfe**](https://www.cloudsurfe.com) It makes note-taking fast and effortless with natural language understanding and templates for to-dos, journaling, book writing, and more — helping your ideas flow into organized action.
 
 > **Currently available on Android**. iOS support is planned for a future release.
 
