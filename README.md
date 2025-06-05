@@ -66,7 +66,7 @@ Thanks to the amazing design team for creating the beautiful UI and user experie
     <tbody>
         <tr>
             <td align="center">
-                <a href="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg">
+                <a href="https://www.behance.net/angel_madueme#">
                     <img src="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg" width="100px;" alt="Angel Madueme"/>
                     <br />
                     <sub><b>Angel Madueme</b></sub>
