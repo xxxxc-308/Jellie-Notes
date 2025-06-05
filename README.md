@@ -11,7 +11,9 @@ Jellie Notes is an open-source, smart note-taking app from [**Cloudsurfe**](http
 
 ### Powered by ONNX Runtime
 Jellie Notes runs AI models locally on the device using [ONNX Runtime](https://onnxruntime.ai/), enabling fast, private, and secure natural language processing without requiring an internet connection.
-<img src="https://github.com/user-attachments/assets/5b1f0050-51ab-4c97-b2c0-4e2e092096f0" alt="ONNX Runtime logo dark" width="50%" />
+<p align="center">
+  <img width="50%" src="https://github.com/user-attachments/assets/5b1f0050-51ab-4c97-b2c0-4e2e092096f0" alt="ONNX Runtime logo dark" />
+</p>
 
 ---
 ## Features
