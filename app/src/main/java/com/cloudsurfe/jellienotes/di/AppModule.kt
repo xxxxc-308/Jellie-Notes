@@ -3,8 +3,8 @@ package com.cloudsurfe.jellienotes.di
 import android.content.Context
 import com.cloudsurfe.jellienotes.data.setting.SettingsDataStore
 import com.cloudsurfe.jellienotes.data.setting.SettingsDataStoreImpl
-import com.cloudsurfe.jellienotes.modules.data.AuthRepositoryImpl
-import com.cloudsurfe.jellienotes.modules.domain.AuthRepository
+import com.cloudsurfe.jellienotes.modules.data.repositoryImpl.auth_repo_impl.AuthRepositoryImpl
+import com.cloudsurfe.jellienotes.modules.domain.repository.auth_repo.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -32,8 +32,9 @@ object AppModule {
     @Singleton
     fun providesAuthRepository(
         firebaseAuth: FirebaseAuth,
+        @ApplicationContext context: Context
     ): AuthRepository {
-        return AuthRepositoryImpl(firebaseAuth)
+        return AuthRepositoryImpl(firebaseAuth,context)
     }
 
 }

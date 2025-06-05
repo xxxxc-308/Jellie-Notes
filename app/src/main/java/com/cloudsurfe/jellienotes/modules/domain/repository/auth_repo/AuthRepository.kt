@@ -1,4 +1,6 @@
-package com.cloudsurfe.jellienotes.modules.domain
+package com.cloudsurfe.jellienotes.modules.domain.repository.auth_repo
+
+import android.content.Context
 
 interface AuthRepository {
 
@@ -17,7 +19,7 @@ interface AuthRepository {
     )
 
     suspend fun signInWithGoogle(
-        idToken: String,
+        context: Context,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     )
