@@ -58,5 +58,27 @@ Jellie-Notes/
 </a>
 
 ---
+
+## Design Team (UI/UX)
+
+Thanks to the amazing design team for creating the beautiful UI and user experience:
+<table>
+    <tbody>
+        <tr>
+            <td align="center">
+                <a href="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg">
+                    <img src="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg" width="100px;" alt="Angel Madueme"/>
+                    <br />
+                    <sub><b>Angel Madueme</b></sub>
+                </a>
+            </td>
+            
+</table>
+
+ 
+ 
+</p>
+
+---
 ## License
 This project is licensed under the [GNU General Public License v3.0 (GPL-3.0)](https://choosealicense.com/licenses/gpl-3.0/).  
