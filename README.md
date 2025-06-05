@@ -63,28 +63,26 @@ Jellie-Notes/
 
 Thanks to the amazing design team for creating the beautiful UI and user experience:
 <table>
-    <tbody>
-        <tr>
-            <td align="center">
-                <a href="https://www.behance.net/angel_madueme#">
-                    <img src="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg" width="100px;" alt="Angel Madueme"/>
-                    <br />
-                    <sub><b>Angel Madueme</b></sub>
-                </a>
-            </td>
-            <tr>
-            <td align="center">
-                <a href="https://www.behance.net/pratyushkurup1#">
-                    <img src="https://mir-s3-cdn-cf.behance.net/user/115/1625901901758375.6776cc68561b1.jpg" width="100px;" alt="Pratyush Kurup"/>
-                    <br />
-                    <sub><b>Pratyush Kurup</b></sub>
-                </a>
-            </td>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://www.behance.net/angel_madueme#">
+          <img src="https://mir-s3-cdn-cf.behance.net/user/115/120279896557085.662fbcc516a0d.jpg" width="100px;" alt="Angel Madueme"/>
+          <br />
+          <sub><b>Angel Madueme</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://www.behance.net/pratyushkurup1#">
+          <img src="https://mir-s3-cdn-cf.behance.net/user/115/1625901901758375.6776cc68561b1.jpg" width="100px;" alt="Pratyush Kurup"/>
+          <br />
+          <sub><b>Pratyush Kurup</b></sub>
+        </a>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
- 
- 
-</p>
 
 ---
 ## License
