@@ -72,7 +72,14 @@ Thanks to the amazing design team for creating the beautiful UI and user experie
                     <sub><b>Angel Madueme</b></sub>
                 </a>
             </td>
-            
+            <tr>
+            <td align="center">
+                <a href="https://www.behance.net/pratyushkurup1#">
+                    <img src="https://mir-s3-cdn-cf.behance.net/user/115/1625901901758375.6776cc68561b1.jpg" width="100px;" alt="Pratyush Kurup"/>
+                    <br />
+                    <sub><b>Pratyush Kurup</b></sub>
+                </a>
+            </td>
 </table>
 
  
