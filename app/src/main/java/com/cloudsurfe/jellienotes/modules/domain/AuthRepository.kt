@@ -9,15 +9,19 @@ interface AuthRepository {
         onError: (String) -> Unit
     )
 
-
     suspend fun signInUserWithEmailAndPassword(
         email: String,
         password: String,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     )
-//    suspend fun signInWithGoogle(onSuccess: () -> Unit, onError: (String) -> Unit)
-//
+
+    suspend fun signInWithGoogle(
+        idToken: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    )
+
 //    suspend fun signInWithMicrosoft(onSuccess: () -> Unit, onError: (String) -> Unit)
 
     fun isUserAuthenticated(): Boolean
@@ -29,5 +33,4 @@ interface AuthRepository {
     )
 
     suspend fun signOut(): Result<Unit>
-
 }

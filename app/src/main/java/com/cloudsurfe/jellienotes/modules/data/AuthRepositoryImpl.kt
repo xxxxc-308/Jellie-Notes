@@ -2,11 +2,13 @@ package com.cloudsurfe.jellienotes.modules.data
 
 import com.cloudsurfe.jellienotes.modules.domain.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import jakarta.inject.Inject
 import kotlinx.coroutines.tasks.await
 
 class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseAuth) :
     AuthRepository {
+
     override suspend fun registerUserWithEmailAndPassword(
         email: String,
         password: String,
@@ -22,7 +24,6 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
         } catch (e: Exception) {
             onError(e.message ?: "Something went wrong while registering user")
         }
-
     }
 
     override suspend fun signInUserWithEmailAndPassword(
@@ -42,13 +43,22 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
         }
     }
 
-//    override suspend fun signInWithGoogle(
-//        onSuccess: () -> Unit,
-//        onError: (String) -> Unit
-//    ) {
-//        TODO("Not yet implemented")
-//    }
-//
+    override suspend fun signInWithGoogle(
+        idToken: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        try {
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            val authResult = firebaseAuth.signInWithCredential(credential).await()
+            authResult.user?.let {
+                onSuccess()
+            } ?: onError("Something went wrong with Google sign-in")
+        } catch (e: Exception) {
+            onError(e.message ?: "Something went wrong with Google sign-in")
+        }
+    }
+
 //    override suspend fun signInWithMicrosoft(
 //        onSuccess: () -> Unit,
 //        onError: (String) -> Unit
@@ -72,11 +82,9 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
                 onError(it.message ?: "Something went wrong while sending password reset email")
             }
 
-
-        }catch (e:Exception){
+        } catch (e: Exception) {
             onError(e.message ?: "Something went wrong while sending password reset email")
         }
-
     }
 
     override suspend fun signOut(): Result<Unit> {
