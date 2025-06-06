@@ -102,4 +102,7 @@ dependencies {
     implementation(libs.google.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.google.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 }
