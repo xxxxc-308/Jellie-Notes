@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.cloudsurfe.editor"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 30
@@ -38,6 +38,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     // Jetpack Compose
     implementation(libs.material)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.material3)
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
