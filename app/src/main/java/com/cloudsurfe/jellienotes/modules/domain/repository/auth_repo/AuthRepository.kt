@@ -24,7 +24,7 @@ interface AuthRepository {
         onError: (String) -> Unit
     )
 
-//    suspend fun signInWithMicrosoft(onSuccess: () -> Unit, onError: (String) -> Unit)
+    suspend fun signInWithMicrosoft(onSuccess: () -> Unit, onError: (String) -> Unit)
 
     fun isUserAuthenticated(): Boolean
 
