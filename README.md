@@ -79,6 +79,13 @@ Thanks to the amazing design team for creating the beautiful UI and user experie
           <sub><b>Pratyush Kurup</b></sub>
         </a>
       </td>
+      <td align="center">
+        <a href="https://dribbble.com/nkrohit">
+          <img src="https://cdn.dribbble.com/users/15988874/avatars/normal/be56edcc85269c84b5dbdbdb2d5ddaa1.jpg?1695371692" width="100px;" alt="Pratyush Kurup"/>
+          <br />
+          <sub><b>Nirmal Rohit</b></sub>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
