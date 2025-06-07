@@ -1,0 +1,403 @@
+Index: editor/src/main/java/com/cloudsurfe/editor/core/TextConfig.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cloudsurfe.editor.core\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.text.style.TextDecoration\nimport com.cloudsurfe.editor.paragraph.UnorderedListStyleType\n\nclass TextConfig internal constructor(\n    private val updateText: () -> Unit\n) {\n    var linkColor: Color = Color.Blue\n        set(value){\n            field = value\n            updateText()\n        }\n\n    var linkTextDecoration : TextDecoration = TextDecoration.Underline\n        set(value){\n            field = value\n            updateText()\n        }\n\n    var codeSpanColor : Color = Color.Unspecified\n        set(value){\n            field = value\n            updateText()\n        }\n\n    var codeSpanBackgroundColor : Color = Color.Transparent\n        set(value){\n            field = value\n            updateText()\n        }\n\n    var codeSpanStrokeColor : Color = Color.LightGray\n        set(value){\n            field = value\n            updateText()\n        }\n\n\n\n}\n\ninternal const val DefaultListIndent = 38\n\ninternal val DefaultUnorderedListStyleType =\n    UnorderedListStyleType.from(\"•\", \"◦\", \"▪\")\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/editor/src/main/java/com/cloudsurfe/editor/core/TextConfig.kt b/editor/src/main/java/com/cloudsurfe/editor/core/TextConfig.kt
+--- a/editor/src/main/java/com/cloudsurfe/editor/core/TextConfig.kt	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/editor/src/main/java/com/cloudsurfe/editor/core/TextConfig.kt	(date 1749262803369)
+@@ -3,34 +3,34 @@
+ import androidx.compose.ui.text.style.TextDecoration
+ import com.cloudsurfe.editor.paragraph.UnorderedListStyleType
+ 
+-class TextConfig internal constructor(
++public class TextConfig internal constructor(
+     private val updateText: () -> Unit
+ ) {
+-    var linkColor: Color = Color.Blue
++    public var linkColor: Color = Color.Blue
+         set(value){
+             field = value
+             updateText()
+         }
+ 
+-    var linkTextDecoration : TextDecoration = TextDecoration.Underline
++    public var linkTextDecoration : TextDecoration = TextDecoration.Underline
+         set(value){
+             field = value
+             updateText()
+         }
+ 
+-    var codeSpanColor : Color = Color.Unspecified
++    public var codeSpanColor : Color = Color.Unspecified
+         set(value){
+             field = value
+             updateText()
+         }
+ 
+-    var codeSpanBackgroundColor : Color = Color.Transparent
++    public var codeSpanBackgroundColor : Color = Color.Transparent
+         set(value){
+             field = value
+             updateText()
+         }
+ 
+-    var codeSpanStrokeColor : Color = Color.LightGray
++    public var codeSpanStrokeColor : Color = Color.LightGray
+         set(value){
+             field = value
+             updateText()
+Index: editor/src/main/java/com/cloudsurfe/editor/paragraph /UnorderedListStyleType.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cloudsurfe.editor.paragraph\n\n@ConsistentCopyVisibility\ndata class UnorderedListStyleType private constructor(\n    internal val prefixes : List<String>\n){\n    companion object{\n        fun from(vararg prefix : String): UnorderedListStyleType{\n            return UnorderedListStyleType(prefix.toList())\n        }\n\n        fun from(prefixes: List<String>): UnorderedListStyleType{\n            return UnorderedListStyleType(prefixes)\n        }\n\n        val Disc: UnorderedListStyleType = UnorderedListStyleType(\n            prefixes = listOf(\"•\")\n\n        )\n\n        val Circle: UnorderedListStyleType = UnorderedListStyleType(\n            prefixes = listOf(\"◦\")\n        )\n\n        val Square: UnorderedListStyleType = UnorderedListStyleType(\n            prefixes = listOf(\"▪\")\n        )\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/editor/src/main/java/com/cloudsurfe/editor/paragraph /UnorderedListStyleType.kt b/editor/src/main/java/com/cloudsurfe/editor/paragraph /UnorderedListStyleType.kt
+--- a/editor/src/main/java/com/cloudsurfe/editor/paragraph /UnorderedListStyleType.kt	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/editor/src/main/java/com/cloudsurfe/editor/paragraph /UnorderedListStyleType.kt	(date 1749263135150)
+@@ -1,28 +1,28 @@
+ package com.cloudsurfe.editor.paragraph
+ 
+ @ConsistentCopyVisibility
+-data class UnorderedListStyleType private constructor(
++public data class UnorderedListStyleType private constructor(
+     internal val prefixes : List<String>
+ ){
+-    companion object{
+-        fun from(vararg prefix : String): UnorderedListStyleType{
++    public companion object{
++        public fun from(vararg prefix : String): UnorderedListStyleType{
+             return UnorderedListStyleType(prefix.toList())
+         }
+ 
+-        fun from(prefixes: List<String>): UnorderedListStyleType{
++        public fun from(prefixes: List<String>): UnorderedListStyleType{
+             return UnorderedListStyleType(prefixes)
+         }
+ 
+-        val Disc: UnorderedListStyleType = UnorderedListStyleType(
++        public val Disc: UnorderedListStyleType = UnorderedListStyleType(
+             prefixes = listOf("•")
+ 
+         )
+ 
+-        val Circle: UnorderedListStyleType = UnorderedListStyleType(
++        public val Circle: UnorderedListStyleType = UnorderedListStyleType(
+             prefixes = listOf("◦")
+         )
+ 
+-        val Square: UnorderedListStyleType = UnorderedListStyleType(
++        public val Square: UnorderedListStyleType = UnorderedListStyleType(
+             prefixes = listOf("▪")
+         )
+     }
+Index: app/src/main/java/com/cloudsurfe/jellienotes/modules/domain/repository/auth_repo/AuthRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cloudsurfe.jellienotes.modules.domain.repository.auth_repo\n\nimport android.content.Context\n\ninterface AuthRepository {\n\n    suspend fun registerUserWithEmailAndPassword(\n        email: String,\n        password: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    )\n\n    suspend fun signInUserWithEmailAndPassword(\n        email: String,\n        password: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    )\n\n    suspend fun signInWithGoogle(\n        context: Context,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    )\n\n//    suspend fun signInWithMicrosoft(onSuccess: () -> Unit, onError: (String) -> Unit)\n\n    fun isUserAuthenticated(): Boolean\n\n    suspend fun sendPasswordResetEmail(\n        email: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    )\n\n    suspend fun signOut(): Result<Unit>\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/cloudsurfe/jellienotes/modules/domain/repository/auth_repo/AuthRepository.kt b/app/src/main/java/com/cloudsurfe/jellienotes/modules/domain/repository/auth_repo/AuthRepository.kt
+--- a/app/src/main/java/com/cloudsurfe/jellienotes/modules/domain/repository/auth_repo/AuthRepository.kt	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/app/src/main/java/com/cloudsurfe/jellienotes/modules/domain/repository/auth_repo/AuthRepository.kt	(date 1749263235143)
+@@ -2,23 +2,23 @@
+ 
+ import android.content.Context
+ 
+-interface AuthRepository {
++public interface AuthRepository {
+ 
+-    suspend fun registerUserWithEmailAndPassword(
++    public suspend fun registerUserWithEmailAndPassword(
+         email: String,
+         password: String,
+         onSuccess: () -> Unit,
+         onError: (String) -> Unit
+     )
+ 
+-    suspend fun signInUserWithEmailAndPassword(
++    public suspend fun signInUserWithEmailAndPassword(
+         email: String,
+         password: String,
+         onSuccess: () -> Unit,
+         onError: (String) -> Unit
+     )
+ 
+-    suspend fun signInWithGoogle(
++    public suspend fun signInWithGoogle(
+         context: Context,
+         onSuccess: () -> Unit,
+         onError: (String) -> Unit
+@@ -26,13 +26,13 @@
+ 
+ //    suspend fun signInWithMicrosoft(onSuccess: () -> Unit, onError: (String) -> Unit)
+ 
+-    fun isUserAuthenticated(): Boolean
++    public fun isUserAuthenticated(): Boolean
+ 
+-    suspend fun sendPasswordResetEmail(
++    public suspend fun sendPasswordResetEmail(
+         email: String,
+         onSuccess: () -> Unit,
+         onError: (String) -> Unit
+     )
+ 
+-    suspend fun signOut(): Result<Unit>
++    public suspend fun signOut(): Result<Unit>
+ }
+\ No newline at end of file
+Index: editor/src/main/java/com/cloudsurfe/editor/paragraph /OrderedListStyleType.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cloudsurfe.editor.paragraph\n\ninterface OrderedListStyleType {\n\n    fun format(number: Int, listLevel: Int): String = number.toString()\n\n    fun getSuffix(listLevel: Int): String = \". \"\n\n    object Decimal : OrderedListStyleType {\n        override fun format(number: Int, listLevel: Int): String = number.toString()\n    }\n\n    object ArabicIndic : OrderedListStyleType {\n        override fun format(number: Int, listLevel: Int): String =\n            number\n                .toString()\n                .map { ch ->\n                    when (ch) {\n                        '0' -> '٠'\n                        '1' -> '١'\n                        '2' -> '٢'\n                        '3' -> '٣'\n                        '4' -> '٤'\n                        '5' -> '٥'\n                        '6' -> '٦'\n                        '7' -> '٧'\n                        '8' -> '٨'\n                        '9' -> '٩'\n                        else -> ch\n                    }\n                }\n                .joinToString(\"\")\n    }\n\n    object Arabic : OrderedListStyleType{\n        override fun format(number: Int, listLevel: Int): String {\n            return super.format(number, listLevel)\n        }\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/editor/src/main/java/com/cloudsurfe/editor/paragraph /OrderedListStyleType.kt b/editor/src/main/java/com/cloudsurfe/editor/paragraph /OrderedListStyleType.kt
+--- a/editor/src/main/java/com/cloudsurfe/editor/paragraph /OrderedListStyleType.kt	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/editor/src/main/java/com/cloudsurfe/editor/paragraph /OrderedListStyleType.kt	(date 1749269154687)
+@@ -1,16 +1,16 @@
+ package com.cloudsurfe.editor.paragraph
+ 
+-interface OrderedListStyleType {
++public interface OrderedListStyleType {
+ 
+-    fun format(number: Int, listLevel: Int): String = number.toString()
++    public fun format(number: Int, listLevel: Int): String = number.toString()
+ 
+-    fun getSuffix(listLevel: Int): String = ". "
++    public fun getSuffix(listLevel: Int): String = ". "
+ 
+-    object Decimal : OrderedListStyleType {
++    public object Decimal : OrderedListStyleType {
+         override fun format(number: Int, listLevel: Int): String = number.toString()
+     }
+ 
+-    object ArabicIndic : OrderedListStyleType {
++    public object ArabicIndic : OrderedListStyleType {
+         override fun format(number: Int, listLevel: Int): String =
+             number
+                 .toString()
+@@ -32,10 +32,171 @@
+                 .joinToString("")
+     }
+ 
+-    object Arabic : OrderedListStyleType{
++    public object Arabic : OrderedListStyleType {
++        internal val arabicLetters = charArrayOf(
++            'أ', 'ب', 'ج', 'د', 'ه', 'و', 'ز', 'ح', 'ط', 'ي', 'ك', 'ل', 'م',
++            'ن', 'س', 'ع', 'ف', 'ص', 'ق', 'ر', 'ش', 'ت', 'ث', 'خ', 'ذ', 'ض', 'ظ', 'غ'
++        )
++
++        override fun format(number: Int, listLevel: Int): String =
++            formatToArabic(
++                number = number,
++            )
++
++
++    }
++
++    public object LowerAlpha : OrderedListStyleType {
++        override fun format(number: Int, listLevel: Int): String =
++            formatToAlpha(
++                number = number,
++                base = 'a'
++            )
++    }
++
++    public object UpperAlpha : OrderedListStyleType {
++        override fun format(number: Int, listLevel: Int): String =
++            formatToAlpha(
++                number = number,
++                base = 'A'
++            )
++    }
++
++    public object LowerRoman : OrderedListStyleType {
++        private val romanNumerals = arrayOf(
++            "m" to 1000,
++            "cm" to 900,
++            "d" to 500,
++            "cd" to 400,
++            "c" to 100,
++            "xc" to 90,
++            "l" to 50,
++            "xl" to 40,
++            "x" to 10,
++            "ix" to 9,
++            "v" to 5,
++            "iv" to 4,
++            "i" to 1
++        )
++
++        override fun format(number: Int, listLevel: Int): String =
++            formatToRomanNumber(
++                number = number,
++                romanNumerals = romanNumerals,
++                defaultValue = "i"
++            )
++    }
++
++    public object UpperRoman : OrderedListStyleType {
++        private val romanNumerals = arrayOf(
++            "M" to 1000,
++            "CM" to 900,
++            "D" to 500,
++            "CD" to 400,
++            "C" to 100,
++            "XC" to 90,
++            "L" to 50,
++            "XL" to 40,
++            "X" to 10,
++            "IX" to 9,
++            "V" to 5,
++            "IV" to 4,
++            "I" to 1
++        )
++
++        override fun format(number: Int, listLevel: Int): String =
++            formatToRomanNumber(
++                number = number,
++                romanNumerals = romanNumerals,
++                defaultValue = "I"
++            )
++    }
++
++    public class Multiple(
++        public vararg val styles: OrderedListStyleType
++    ) : OrderedListStyleType {
+         override fun format(number: Int, listLevel: Int): String {
+-            return super.format(number, listLevel)
++            if (styles.isEmpty())
++                return Decimal.format(number, listLevel)
++            val style = styles[(listLevel - 1).coerceIn(styles.indices)]
++            return style.format(number, listLevel)
+         }
++
++        override fun getSuffix(listLevel: Int): String {
++            if (styles.isEmpty())
++                return Decimal.getSuffix(listLevel)
++
++            val style = styles[(listLevel - 1).coerceIn(styles.indices)]
++            return style.getSuffix(listLevel)
++        }
+     }
++
++    private companion object {
++
++        private fun formatToArabic(
++            number: Int,
++        ): String {
++            if (number <= 0)
++                return Arabic.arabicLetters.first().toString()
++
++            val result = StringBuilder()
++            var n = number
++            while (n > 0) {
++                val remainder = (n - 1) % 28
++                result.insert(0, Arabic.arabicLetters[remainder])
++                n = (n - 1) / 28
++            }
++            return result.toString()
++        }
+ 
++        private fun formatToAlpha(
++            number: Int,
++            base: Char,
++        ): String {
++            if (number <= 0)
++                return base.toString()
++
++            val baseCode = base.code - 1
++            val result = StringBuilder()
++            var n = number
++            while (n > 0) {
++                val remainder = (n - 1) % 26 + 1
++                result.insert(0, (baseCode + remainder).toChar())
++                n = (n - 1) / 26
++            }
++            return result.toString()
++        }
++
++        private fun formatToRomanNumber(
++            number: Int,
++            romanNumerals: Array<Pair<String, Int>>,
++            defaultValue: String,
++        ): String {
++            if (number <= 0)
++                return defaultValue
++
++            var n = number
++            val result = StringBuilder()
++            for ((roman, value) in romanNumerals) {
++                while (n >= value) {
++                    result.append(roman)
++                    n -= value
++                }
++            }
++            return result.toString()
++        }
++    }
+ }
++
++
++
++
++
++
++
++
++
++
++
++
++
+Index: .idea/appInsightsSettings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AppInsightsSettings\">\n    <option name=\"tabSettings\">\n      <map>\n        <entry key=\"Firebase Crashlytics\">\n          <value>\n            <InsightsFilterSettings>\n              <option name=\"connection\">\n                <ConnectionSetting>\n                  <option name=\"appId\" value=\"PLACEHOLDER\" />\n                  <option name=\"mobileSdkAppId\" value=\"\" />\n                  <option name=\"projectId\" value=\"\" />\n                  <option name=\"projectNumber\" value=\"\" />\n                </ConnectionSetting>\n              </option>\n              <option name=\"signal\" value=\"SIGNAL_UNSPECIFIED\" />\n              <option name=\"timeIntervalDays\" value=\"THIRTY_DAYS\" />\n              <option name=\"visibilityType\" value=\"ALL\" />\n            </InsightsFilterSettings>\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/appInsightsSettings.xml b/.idea/appInsightsSettings.xml
+--- a/.idea/appInsightsSettings.xml	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/.idea/appInsightsSettings.xml	(date 1749260121270)
+@@ -8,10 +8,10 @@
+             <InsightsFilterSettings>
+               <option name="connection">
+                 <ConnectionSetting>
+-                  <option name="appId" value="PLACEHOLDER" />
+-                  <option name="mobileSdkAppId" value="" />
+-                  <option name="projectId" value="" />
+-                  <option name="projectNumber" value="" />
++                  <option name="appId" value="com.cloudsurfe.jellienotes" />
++                  <option name="mobileSdkAppId" value="1:331303210771:android:7a88b7da6757cce33994e6" />
++                  <option name="projectId" value="jellie-notes" />
++                  <option name="projectNumber" value="331303210771" />
+                 </ConnectionSetting>
+               </option>
+               <option name="signal" value="SIGNAL_UNSPECIFIED" />
+Index: app/src/main/java/com/cloudsurfe/jellienotes/modules/data/repositoryImpl/auth_repo_impl/AuthRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cloudsurfe.jellienotes.modules.data.repositoryImpl.auth_repo_impl\n\nimport android.content.Context\nimport androidx.credentials.CredentialManager\nimport androidx.credentials.CustomCredential\nimport androidx.credentials.GetCredentialRequest\nimport androidx.credentials.GetCredentialResponse\nimport com.cloudsurfe.jellienotes.core.LocalSecrets\nimport com.cloudsurfe.jellienotes.modules.domain.repository.auth_repo.AuthRepository\nimport com.google.android.libraries.identity.googleid.GetGoogleIdOption\nimport com.google.android.libraries.identity.googleid.GoogleIdTokenCredential\nimport com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException\nimport com.google.firebase.auth.FirebaseAuth\nimport com.google.firebase.auth.GoogleAuthProvider\nimport jakarta.inject.Inject\nimport kotlinx.coroutines.tasks.await\n\nclass AuthRepositoryImpl @Inject constructor(\n    private val firebaseAuth: FirebaseAuth,\n    private val context: Context\n) :\n    AuthRepository {\n\n    private val credentialManager = CredentialManager.create(context)\n\n    override suspend fun registerUserWithEmailAndPassword(\n        email: String,\n        password: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    ) {\n        try {\n            val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()\n            authResult.user?.let {\n                onSuccess()\n            } ?: onError(\"Something went wrong while registering user\")\n\n        } catch (e: Exception) {\n            onError(e.message ?: \"Something went wrong while registering user\")\n        }\n    }\n\n    override suspend fun signInUserWithEmailAndPassword(\n        email: String,\n        password: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    ) {\n        try {\n            val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()\n            authResult.user?.let {\n                onSuccess()\n            } ?: onError(\"Something went wrong while signing in user\")\n\n        } catch (e: Exception) {\n            onError(e.message ?: \"Something went wrong while signing in user\")\n        }\n    }\n\n    override suspend fun signInWithGoogle(\n        context: Context,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    ) {\n        try {\n            val result = buildCredentialRequest()\n            if (handleSingIn(result)) {\n                onSuccess()\n            } else {\n                onError(\"Something went wrong while signing in with Google\")\n            }\n        } catch (e: Exception) {\n            onError(e.message ?: \"Something went wrong while signing in with Google\")\n\n        }\n    }\n\n//    override suspend fun signInWithMicrosoft(\n//        onSuccess: () -> Unit,\n//        onError: (String) -> Unit\n//    ) {\n//        TODO(\"Not yet implemented\")\n//    }\n\n    override fun isUserAuthenticated(): Boolean {\n        return firebaseAuth.currentUser != null\n    }\n\n    override suspend fun sendPasswordResetEmail(\n        email: String,\n        onSuccess: () -> Unit,\n        onError: (String) -> Unit\n    ) {\n        try {\n            firebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener {\n                onSuccess()\n            }.addOnFailureListener {\n                onError(it.message ?: \"Something went wrong while sending password reset email\")\n            }\n\n        } catch (e: Exception) {\n            onError(e.message ?: \"Something went wrong while sending password reset email\")\n        }\n    }\n\n    override suspend fun signOut(): Result<Unit> {\n        return try {\n            firebaseAuth.signOut()\n            Result.success(Unit)\n        } catch (e: Exception) {\n            Result.failure(e)\n        }\n    }\n\n    private suspend fun handleSingIn(result: GetCredentialResponse): Boolean {\n        val credential = result.credential\n\n        if (\n            credential is CustomCredential &&\n            credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL\n        ) {\n\n            try {\n\n                val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)\n\n\n                val authCredential = GoogleAuthProvider.getCredential(\n                    tokenCredential.idToken, null\n                )\n                val authResult = firebaseAuth.signInWithCredential(authCredential).await()\n\n                return authResult.user != null\n\n            } catch (e: GoogleIdTokenParsingException) {\n                println(\"GoogleIdTokenParsingException: ${e.message}\")\n                return false\n            }\n\n        } else {\n\n            return false\n        }\n\n    }\n\n    private suspend fun buildCredentialRequest(): GetCredentialResponse {\n        val request = GetCredentialRequest.Builder()\n            .addCredentialOption(\n                GetGoogleIdOption.Builder()\n                    .setFilterByAuthorizedAccounts(false)\n                    .setServerClientId(\n                        LocalSecrets.WEB_CLIENT_ID\n                    )\n                    .setAutoSelectEnabled(false)\n                    .build()\n            )\n            .build()\n\n        return credentialManager.getCredential(\n            request = request, context = context\n        )\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/cloudsurfe/jellienotes/modules/data/repositoryImpl/auth_repo_impl/AuthRepositoryImpl.kt b/app/src/main/java/com/cloudsurfe/jellienotes/modules/data/repositoryImpl/auth_repo_impl/AuthRepositoryImpl.kt
+--- a/app/src/main/java/com/cloudsurfe/jellienotes/modules/data/repositoryImpl/auth_repo_impl/AuthRepositoryImpl.kt	(revision a5b8419bc49136cd2bbb8ee21decc0136b6dcb27)
++++ b/app/src/main/java/com/cloudsurfe/jellienotes/modules/data/repositoryImpl/auth_repo_impl/AuthRepositoryImpl.kt	(date 1749263235156)
+@@ -15,7 +15,7 @@
+ import jakarta.inject.Inject
+ import kotlinx.coroutines.tasks.await
+ 
+-class AuthRepositoryImpl @Inject constructor(
++public class AuthRepositoryImpl @Inject constructor(
+     private val firebaseAuth: FirebaseAuth,
+     private val context: Context
+ ) :

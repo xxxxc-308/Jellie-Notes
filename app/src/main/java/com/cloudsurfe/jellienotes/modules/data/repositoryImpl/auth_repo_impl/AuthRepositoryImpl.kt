@@ -14,9 +14,10 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingExcept
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
+import jakarta.inject.Inject
 import kotlinx.coroutines.tasks.await
 
-class AuthRepositoryImpl(
+public class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
     private val context: Context
 ) :
