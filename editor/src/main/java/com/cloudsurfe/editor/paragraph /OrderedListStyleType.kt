@@ -10,6 +10,7 @@ public interface OrderedListStyleType {
         override fun format(number: Int, listLevel: Int): String = number.toString()
     }
 
+    // Arabic-Indic format (١, ٢, ٣, ...)
     public object ArabicIndic : OrderedListStyleType {
         override fun format(number: Int, listLevel: Int): String =
             number
@@ -32,6 +33,7 @@ public interface OrderedListStyleType {
                 .joinToString("")
     }
 
+    // Arabic alphabet style (أ, ب, ج, ...)
     public object Arabic : OrderedListStyleType {
         internal val arabicLetters = charArrayOf(
             'أ', 'ب', 'ج', 'د', 'ه', 'و', 'ز', 'ح', 'ط', 'ي', 'ك', 'ل', 'م',
