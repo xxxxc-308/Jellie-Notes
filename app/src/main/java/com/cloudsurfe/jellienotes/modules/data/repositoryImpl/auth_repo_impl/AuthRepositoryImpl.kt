@@ -1,5 +1,6 @@
 package com.cloudsurfe.jellienotes.modules.data.repositoryImpl.auth_repo_impl
 
+import android.app.Activity
 import android.content.Context
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -12,6 +13,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
 import jakarta.inject.Inject
 import kotlinx.coroutines.tasks.await
 
@@ -75,12 +77,40 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-//    override suspend fun signInWithMicrosoft(
-//        onSuccess: () -> Unit,
-//        onError: (String) -> Unit
-//    ) {
-//        TODO("Not yet implemented")
-//    }
+    override suspend fun signInWithMicrosoft(
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        try {
+            val provider = OAuthProvider.newBuilder("microsoft.com")
+
+
+            provider.addCustomParameter("prompt", "consent")
+
+            provider.addCustomParameter("tenant", "common") // if doesn't work add actual tenant id from azure
+
+
+            provider.scopes = listOf("email")
+
+
+            val activity = context as? Activity ?: run {
+                onError("Invalid context: must be an Activity.")
+                return
+            }
+
+            firebaseAuth
+                .startActivityForSignInWithProvider(activity, provider.build())
+                .addOnSuccessListener {
+                    onSuccess()
+                }
+                .addOnFailureListener { exception ->
+                    onError(exception.localizedMessage ?: "Microsoft sign-in failed")
+                }
+
+        } catch (e: Exception) {
+            onError(e.localizedMessage ?: "Unexpected error occurred")
+        }
+    }
 
     override fun isUserAuthenticated(): Boolean {
         return firebaseAuth.currentUser != null
