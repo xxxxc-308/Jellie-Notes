@@ -17,7 +17,7 @@ import com.google.firebase.auth.OAuthProvider
 import jakarta.inject.Inject
 import kotlinx.coroutines.tasks.await
 
-class AuthRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
     private val context: Context
 ) :
