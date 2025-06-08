@@ -1,4 +1,4 @@
-package com.cloudsurfe.editor.paragraph
+package com.cloudsurfe.editor.paragraph.type
 
 @ConsistentCopyVisibility
 public data class UnorderedListStyleType private constructor(
@@ -28,4 +28,3 @@ public data class UnorderedListStyleType private constructor(
         )
     }
 }
-

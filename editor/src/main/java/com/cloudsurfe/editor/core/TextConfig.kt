@@ -3,7 +3,7 @@ package com.cloudsurfe.editor.core
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import com.cloudsurfe.editor.paragraph.OrderedListStyleType
-import com.cloudsurfe.editor.paragraph.UnorderedListStyleType
+import com.cloudsurfe.editor.paragraph.type.UnorderedListStyleType
 
 public class TextConfig internal constructor(
     private val updateText: () -> Unit
