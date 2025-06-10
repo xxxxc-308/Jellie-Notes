@@ -1,4 +1,4 @@
-package com.cloudsurfe.editor.paragraph
+package com.cloudsurfe.editor.paragraph.type
 
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp

@@ -1,19 +1,19 @@
-package com.cloudsurfe.editor.paragraph
+package com.cloudsurfe.editor.paragraph.type
 
 import androidx.compose.ui.text.ParagraphStyle
-import com.cloudsurfe.editor.core.RichSpan
-import com.cloudsurfe.editor.core.TextConfig
+import com.cloudsurfe.editor.core.EditorSpan
+import com.cloudsurfe.editor.core.EditorTextConfig
+import com.cloudsurfe.editor.paragraph.RichParagraph
 
 internal class DefaultParagraph() : ParagraphType {
-
     private val style: ParagraphStyle =
         ParagraphStyle()
 
-    override fun getStyle(config: TextConfig): ParagraphStyle {
+    override fun getStyle(config: EditorTextConfig): ParagraphStyle {
         return style
     }
 
-    override val startRichSpan: RichSpan = RichSpan(paragraph = RichParagraph(type = this))
+    override val startRichSpan: EditorSpan = EditorSpan(paragraph = RichParagraph(type = this))
 
     override fun getNextParagraphType(): ParagraphType =
         DefaultParagraph()
@@ -31,5 +31,4 @@ internal class DefaultParagraph() : ParagraphType {
     override fun hashCode(): Int {
         return 0
     }
-
 }

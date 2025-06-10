@@ -5,7 +5,6 @@ public data class UnorderedListStyleType private constructor(
     internal val prefixes : List<String>
 ){
     public companion object{
-
         public fun from(vararg prefix : String): UnorderedListStyleType{
             return UnorderedListStyleType(prefix.toList())
         }

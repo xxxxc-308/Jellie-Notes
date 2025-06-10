@@ -1,7 +1,6 @@
-package com.cloudsurfe.editor.paragraph
+package com.cloudsurfe.editor.paragraph.type
 
 public interface OrderedListStyleType {
-
     public fun format(number: Int, listLevel: Int): String = number.toString()
 
     public fun getSuffix(listLevel: Int): String = ". "
@@ -9,7 +8,6 @@ public interface OrderedListStyleType {
     public object Decimal : OrderedListStyleType {
         override fun format(number: Int, listLevel: Int): String = number.toString()
     }
-
     // Arabic-Indic format (١, ٢, ٣, ...)
     public object ArabicIndic : OrderedListStyleType {
         override fun format(number: Int, listLevel: Int): String =
@@ -32,7 +30,6 @@ public interface OrderedListStyleType {
                 }
                 .joinToString("")
     }
-
     // Arabic alphabet style (أ, ب, ج, ...)
     public object Arabic : OrderedListStyleType {
         internal val arabicLetters = charArrayOf(
@@ -189,16 +186,3 @@ public interface OrderedListStyleType {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
