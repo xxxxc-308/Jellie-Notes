@@ -12,7 +12,7 @@ internal class EditorSpan(
     var text: String = "",
     var textRange: TextRange = TextRange(start = 0, end = 0),
     var spanStyle: SpanStyle = SpanStyle(),
-    var editorSpanStyle: EditorSpanStyle =
+    var editorSpanStyle: EditorSpanStyle = EditorSpanStyle.Default
 ){
 
 
