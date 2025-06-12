@@ -5,7 +5,7 @@ import com.cloudsurfe.editor.core.EditorSpan
 import com.cloudsurfe.editor.paragraph.type.DefaultParagraph
 import com.cloudsurfe.editor.paragraph.type.ParagraphType
 
-internal class RichParagraph(
+internal class EditorParagraph(
     val key: Int = 0,
     val children: MutableList<EditorSpan> = mutableListOf(),
     var paragraphStyle: ParagraphStyle = DefaultParagraphStyle,
