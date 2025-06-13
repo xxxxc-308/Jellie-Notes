@@ -13,7 +13,7 @@ internal class DefaultParagraph() : ParagraphType {
         return style
     }
 
-    override val startRichSpan: EditorSpan = EditorSpan(paragraph = EditorParagraph(type = this))
+    override val startEditorSpan: EditorSpan = EditorSpan(paragraph = EditorParagraph(type = this))
 
     override fun getNextParagraphType(): ParagraphType =
         DefaultParagraph()

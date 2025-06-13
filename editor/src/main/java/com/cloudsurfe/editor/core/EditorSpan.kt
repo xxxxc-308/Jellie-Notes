@@ -255,15 +255,132 @@ internal class EditorSpan(
         return null
     }
 
-//    fun getRichSpanByTextIndex(
-//        textIndex: Int,
-//        offset: Int = 0,
-//        ignoreCustomFiltering: Boolean = false
-//    ): Pair<Int, EditorSpan?> {
-//
-//    }
+    fun getRichSpanByTextIndex(
+        textIndex: Int,
+        offset: Int = 0,
+        ignoreCustomFiltering: Boolean = false
+    ): Pair<Int, EditorSpan?> {
+        var index = offset
 
+        textRange = TextRange(start = index, end = index + text.length)
 
+        if (!editorSpanStyle.acceptNewTextInTheEdges && !ignoreCustomFiltering) {
+            val fullTextRange = fullTextRange
+            if (textIndex == fullTextRange.max - 1) {
+                index += fullTextRange.length
+                return index to null
+            }
+        }
+
+        index += this.text.length
+
+        if (
+            (textIndex in textRange || (isFirstInParagraph && textIndex + 1 == textRange.min))
+        ) {
+            return if (text.isEmpty()) {
+                index to paragraph.getFirstNonEmptyChild(index)
+            } else {
+                index to this
+            }
+        }
+
+        children.fastForEach { editorSpan ->
+            val result = editorSpan.getRichSpanByTextIndex(
+                textIndex = textIndex,
+                offset = index,
+                ignoreCustomFiltering = ignoreCustomFiltering,
+            )
+            if (result.second != null)
+                return result
+            else
+                index = result.first
+        }
+
+        return index to null
+    }
+
+    fun getRichSpanListByTextRange(
+        searchTextRange: TextRange,
+        offset: Int = 0,
+    ): Pair<Int, List<EditorSpan>> {
+        var index = offset
+        val editorSpanList = mutableListOf<EditorSpan>()
+
+        textRange = TextRange(start = index, end = index + text.length)
+        index += this.text.length
+
+        if (searchTextRange.min < textRange.max && searchTextRange.max > textRange.min)
+            editorSpanList.add(this)
+
+        children.fastForEach { editorSpan ->
+            val result = editorSpan.getRichSpanListByTextRange(
+                searchTextRange = searchTextRange,
+                offset = index,
+            )
+            editorSpanList.addAll(result.second)
+            index = result.first
+        }
+
+        return index to editorSpanList
+    }
+
+    fun remove() {
+        text = ""
+        parent?.children?.remove(this)
+    }
+
+    fun removeTextRange(
+        removeTextRange: TextRange,
+        offset: Int,
+    ): Pair<Int, EditorSpan?> {
+        var index = offset
+
+        textRange = TextRange(start = index, end = index + text.length)
+
+        index += text.length
+
+        if (removeTextRange.min <= this.textRange.min && removeTextRange.max >= this.textRange.max) {
+            this.textRange = TextRange(start = 0, end = 0)
+            text = ""
+        } else if (removeTextRange.min in this.textRange || (removeTextRange.max - 1) in this.textRange) {
+            val startFirstHalf = 0 until (removeTextRange.min - this.textRange.min)
+            val startSecondHalf =
+                (removeTextRange.max - this.textRange.min) until (this.textRange.max - this.textRange.min)
+            val newStartText =
+                (if (startFirstHalf.isEmpty()) "" else text.substring(startFirstHalf)) +
+                        (if (startSecondHalf.isEmpty()) "" else text.substring(startSecondHalf))
+
+            this.textRange = TextRange(start = this.textRange.min, end = this.textRange.min + newStartText.length)
+            text = newStartText
+        }
+
+        val toRemoveIndices = mutableListOf<Int>()
+        for (i in 0..children.lastIndex){
+            val editorSpan = children[i]
+            val result = editorSpan.removeTextRange(removeTextRange, index)
+            val newEditorSpan = result.second
+            if (newEditorSpan == null) {
+                toRemoveIndices.add(i)
+            } else {
+                children[i] = newEditorSpan
+            }
+            index = result.first
+        }
+        for (i in toRemoveIndices.lastIndex downTo 0) {
+            children.removeAt(toRemoveIndices[i])
+        }
+
+        if (text.isEmpty()) {
+            if (children.isEmpty()) {
+                return index to null
+            } else if (children.size == 1) {
+                val child = children.first()
+                child.parent = parent
+                child.spanStyle = spanStyle.
+            }
+        }
+
+    }
 
 
 

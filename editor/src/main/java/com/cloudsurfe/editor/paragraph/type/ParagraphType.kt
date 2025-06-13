@@ -7,13 +7,13 @@ import com.cloudsurfe.editor.core.EditorTextConfig
 internal interface ParagraphType {
     fun getStyle(config: EditorTextConfig): ParagraphStyle
 
-    val startRichSpan: EditorSpan
+    val startEditorSpan: EditorSpan
 
     fun getNextParagraphType(): ParagraphType
 
     fun copy(): ParagraphType
 
     companion object {
-
+        val ParagraphType.startText: String get() = startEditorSpan.text
     }
 }
