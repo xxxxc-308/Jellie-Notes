@@ -3,8 +3,11 @@ package com.cloudsurfe.editor.core
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.fastForEachReversed
 import com.cloudsurfe.editor.paragraph.EditorParagraph
+import com.cloudsurfe.editor.utils.customMerge
+import com.cloudsurfe.editor.utils.isSpecifiedFieldsEquals
 
 internal class EditorSpan(
     internal val key: Int? = null,
@@ -30,6 +33,19 @@ internal class EditorSpan(
                 )
             }
             return textRange
+        }
+
+    val fullSpanStyle: SpanStyle
+        get() {
+            var spanStyle = this.spanStyle
+            var parent = this.parent
+
+            while (parent != null) {
+                spanStyle = parent.spanStyle.merge(spanStyle)
+                parent = parent.parent
+            }
+
+            return spanStyle
         }
 
     val fullStyle: EditorSpanStyle
@@ -350,12 +366,15 @@ internal class EditorSpan(
                 (if (startFirstHalf.isEmpty()) "" else text.substring(startFirstHalf)) +
                         (if (startSecondHalf.isEmpty()) "" else text.substring(startSecondHalf))
 
-            this.textRange = TextRange(start = this.textRange.min, end = this.textRange.min + newStartText.length)
+            this.textRange = TextRange(
+                start = this.textRange.min,
+                end = this.textRange.min + newStartText.length
+            )
             text = newStartText
         }
 
         val toRemoveIndices = mutableListOf<Int>()
-        for (i in 0..children.lastIndex){
+        for (i in 0..children.lastIndex) {
             val editorSpan = children[i]
             val result = editorSpan.removeTextRange(removeTextRange, index)
             val newEditorSpan = result.second
@@ -376,29 +395,86 @@ internal class EditorSpan(
             } else if (children.size == 1) {
                 val child = children.first()
                 child.parent = parent
-                child.spanStyle = spanStyle.
+                child.spanStyle = spanStyle.customMerge(child.spanStyle)
+                return index to child
             }
         }
 
+        return index to this
     }
 
+    fun getClosestEditorSpan(
+        spanStyle: SpanStyle,
+        newEditorSpanStyle: EditorSpanStyle
+    ): EditorSpan? {
+        if (
+            spanStyle.isSpecifiedFieldsEquals(this.fullSpanStyle, strict = true) &&
+            newEditorSpanStyle::class == editorSpanStyle::class
+        ) return this
 
+        return parent?.getClosestEditorSpan(spanStyle, newEditorSpanStyle)
+    }
 
+    fun updateChildrenParagraph(newParagraph: EditorParagraph) {
+        children.fastForEach { childEditorSpan ->
+            childEditorSpan.paragraph = newParagraph
+            childEditorSpan.updateChildrenParagraph(newParagraph)
+        }
+    }
 
+    fun removeEmptyChildren() {
+        val toRemoveIndices = mutableListOf<Int>()
 
+        children.fastForEachIndexed { i, editorSpan ->
+            if (editorSpan.isEmpty())
+                toRemoveIndices.add(i)
+            else
+                editorSpan.removeEmptyChildren()
+        }
 
+        toRemoveIndices.fastForEachReversed {
+            children.removeAt(it)
+        }
+    }
 
+    fun copy(
+        newParagraph: EditorParagraph = paragraph,
+    ): EditorSpan {
+        val newSpan = EditorSpan(
+            paragraph = newParagraph,
+            text = text,
+            textRange = textRange,
+            editorSpanStyle = editorSpanStyle,
+            spanStyle = spanStyle
+        )
+        children.fastForEach { childEditorSpan ->
+            val newEditorSpan = childEditorSpan.copy(newParagraph)
+            newEditorSpan.parent = newSpan
+        }
+        return newSpan
+    }
 
+    internal fun copy(
+        key: Int? = this.key,
+        children: MutableList<EditorSpan> = this.children,
+        paragraph: EditorParagraph = this.paragraph,
+        parent: EditorSpan? = this.parent,
+        text: String = this.text,
+        textRange: TextRange = this.textRange,
+        spanStyle: SpanStyle = this.spanStyle,
+        editorSpanStyle: EditorSpanStyle = this.editorSpanStyle,
+    ) = EditorSpan(
+        key = key,
+        children = children,
+        paragraph = paragraph,
+        parent = parent,
+        text = text,
+        textRange = textRange,
+        spanStyle = spanStyle,
+        editorSpanStyle = editorSpanStyle
+    )
 
-
-
-
-
-
-
-
-
-
-
-
+    override fun toString(): String {
+        return "richSpan(text='$text', textRange=$textRange, fullTextRange=$fullTextRange, fontSize=${spanStyle.fontSize}, fontWeight=${spanStyle.fontWeight}, richSpanStyle=$editorSpanStyle)"
+    }
 }

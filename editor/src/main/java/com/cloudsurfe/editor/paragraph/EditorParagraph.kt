@@ -42,7 +42,7 @@ internal class EditorParagraph(
             )
 
         if (index > textIndex)
-            return index
+            return index to getFirstNonEmptyChild()
     }
 
     fun removeTextRange(
@@ -54,7 +54,7 @@ internal class EditorParagraph(
 
         for (i in 0..children.lastIndex) {
             val child = children[i]
-            val result = child.
+            val result = child.removeTextRange()
         }
     }
 

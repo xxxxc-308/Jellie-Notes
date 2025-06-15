@@ -6,6 +6,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.isSpecified
+import androidx.compose.ui.unit.isUnspecified
 
 internal fun SpanStyle.customMerge(
     other: SpanStyle?,
@@ -65,4 +66,36 @@ internal fun SpanStyle.unmerge(
         } else this.textDecoration,
         shadow = if (other.shadow != null) null else this.shadow,
     )
+}
+
+internal fun SpanStyle.isSpecifiedFieldsEquals(other: SpanStyle? = null, strict: Boolean = false): Boolean {
+    if (other == null) return false
+
+    if (other.color.isSpecified && this.color != other.color) return false
+    if (other.fontFamily != null && this.fontFamily != other.fontFamily) return false
+    if (!other.fontSize.isUnspecified && this.fontSize != other.fontSize) return false
+    if (other.fontWeight != null && this.fontWeight != other.fontWeight) return false
+    if (other.fontStyle != null && this.fontStyle != other.fontStyle) return false
+    if (other.fontSynthesis != null && this.fontSynthesis != other.fontSynthesis) return false
+    if (other.fontFeatureSettings != null && this.fontFeatureSettings != other.fontFeatureSettings) return false
+    if (!other.letterSpacing.isUnspecified && this.letterSpacing != other.letterSpacing) return false
+    if (other.baselineShift != null && this.baselineShift != other.baselineShift) return false
+    if (other.textGeometricTransform != null && this.textGeometricTransform != other.textGeometricTransform) return false
+    if (other.localeList != null && this.localeList != other.localeList) return false
+    if (other.background.isSpecified && this.background != other.background) return false
+    if (strict) {
+        if (other.textDecoration != null && this.textDecoration != other.textDecoration) return false
+    } else {
+        if (
+            (other.textDecoration != null &&
+                    this.textDecoration == null) ||
+            (other.textDecoration != null &&
+                    this.textDecoration != null &&
+                    other.textDecoration!! !in this.textDecoration!! &&
+                    this.textDecoration!! !in other.textDecoration!!)
+        ) return false
+    }
+    if (other.shadow != null && this.shadow != other.shadow) return false
+
+    return true
 }
