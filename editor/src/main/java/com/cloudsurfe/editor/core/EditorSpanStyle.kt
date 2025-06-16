@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.isSpecified
 import androidx.compose.ui.unit.sp
 import com.cloudsurfe.editor.utils.getBoundingBoxes
 
+//TODO UNDER WORK
 public interface EditorSpanStyle {
     public val spanStyle: (EditorTextConfig) -> SpanStyle
 
@@ -198,7 +199,7 @@ public interface EditorSpanStyle {
         //TODO: Implement more functions
     }
 
-    public data object Default : EditorSpanStyle{
+    public data object Default : EditorSpanStyle {
         override val spanStyle: (EditorTextConfig) -> SpanStyle =
             { SpanStyle() }
 
@@ -214,9 +215,7 @@ public interface EditorSpanStyle {
             true
     }
 
-    public companion object{
+    public companion object {
         internal val DefaultSpanStyle = SpanStyle()
     }
-
-
 }

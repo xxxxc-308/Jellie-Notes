@@ -123,6 +123,22 @@ internal class EditorSpan(
             return parent.children.firstOrNull() == current
         }
 
+    val isLastInParagraph: Boolean get() {
+        var current: EditorSpan
+        var parent: EditorSpan = this
+
+        if (!isChildrenEmpty()) return false
+
+        while (true) {
+            current = parent
+            parent = current.parent ?: break
+
+            if (parent.children.lastOrNull() != current) return false
+        }
+
+        return paragraph.children.lastOrNull() == current
+    }
+
     fun isEmpty(): Boolean =
         text.isEmpty() && isChildrenEmpty() && editorSpanStyle !is EditorSpanStyle.Image
 

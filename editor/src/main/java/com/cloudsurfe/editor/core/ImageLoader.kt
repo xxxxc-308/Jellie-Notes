@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 
-public interface ImageLoader{
+public interface ImageLoader {
 
     @Composable
     public fun load(model: Any): ImageData?
