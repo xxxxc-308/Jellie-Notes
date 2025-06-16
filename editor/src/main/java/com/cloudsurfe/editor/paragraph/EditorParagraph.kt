@@ -17,12 +17,12 @@ internal class EditorParagraph(
     var type: ParagraphType = DefaultParagraph()
 ) {
 
-    fun getRichSpanByTextIndex(
+    fun getEditorSpanByTextIndex(
         paragraphIndex: Int,
         textIndex: Int,
         offset: Int = 0,
         ignoreCustomFiltering: Boolean = false,
-    ): Pair<Int, Boolean> {
+    ): Pair<Int, EditorSpan?> {
         var index = offset
 
         if (paragraphIndex > 0)
@@ -42,7 +42,55 @@ internal class EditorParagraph(
             )
 
         if (index > textIndex)
-            return index to getFirstNonEmptyChild()
+            return index to getFirstNonEmptyChild(offset = index)
+
+        children.fastForEach { editorSpan ->
+            val result = editorSpan.getEditorSpanByTextIndex(
+                textIndex = textIndex,
+                offset = index,
+                ignoreCustomFiltering = ignoreCustomFiltering
+            )
+            if (result.second != null)
+                return result
+            else
+                index = result.first
+        }
+
+        return index to null
+    }
+
+    fun getEditorSpanListByTextRange(
+        paragraphIndex: Int,
+        searchTextRange: TextRange,
+        offset: Int = 0
+    ): Pair<Int, List<EditorSpan>>{
+        var index = offset
+
+        if (paragraphIndex > 0) index++
+
+        type.startEditorSpan.paragraph = this
+        type.startEditorSpan.textRange = TextRange(index, index + type.startText.length)
+
+        index += type.startText.length
+
+        if (children.isEmpty()) children.add(
+            EditorSpan(
+                paragraph = this,
+                textRange = TextRange(index)
+            )
+        )
+
+        val editorSpanList = mutableListOf<EditorSpan>()
+        children.fastForEach {editorSpan ->
+            val result = editorSpan.getEditorSpanListByTextRange(
+                searchTextRange = searchTextRange,
+                offset = index,
+            )
+            editorSpanList.addAll(result.second)
+            index = result.first
+        }
+
+        return index to editorSpanList
     }
 
     fun removeTextRange(
@@ -54,8 +102,25 @@ internal class EditorParagraph(
 
         for (i in 0..children.lastIndex) {
             val child = children[i]
-            val result = child.removeTextRange()
+            val result = child.removeTextRange(textRange, index)
+            val newEditorSpan = result.second
+
+            if (newEditorSpan != null)
+                children[i] = newEditorSpan
+            else
+                toRemoveIndices.add(i)
+
+            index = result.first
         }
+
+        for (i in toRemoveIndices.lastIndex downTo 0) {
+            children.removeAt(toRemoveIndices[i])
+        }
+
+        if (children.isEmpty())
+            return null
+
+        return this
     }
 
     fun getTextRange(): TextRange {
@@ -124,11 +189,10 @@ internal class EditorParagraph(
     fun getFirstNonEmptyChild(offset: Int = -1): EditorSpan? {
         children.fastForEach { editorSpan ->
             if (editorSpan.text.isNotEmpty()) {
-                if (offset != -1) {
+                if (offset != -1)
                     editorSpan.textRange = TextRange(offset, offset + editorSpan.text.length)
 
-                    return editorSpan
-                }
+                return editorSpan
             } else {
                 val result = editorSpan.getFirstNonEmptyChild(offset)
 

@@ -271,7 +271,7 @@ internal class EditorSpan(
         return null
     }
 
-    fun getRichSpanByTextIndex(
+    fun getEditorSpanByTextIndex(
         textIndex: Int,
         offset: Int = 0,
         ignoreCustomFiltering: Boolean = false
@@ -301,7 +301,7 @@ internal class EditorSpan(
         }
 
         children.fastForEach { editorSpan ->
-            val result = editorSpan.getRichSpanByTextIndex(
+            val result = editorSpan.getEditorSpanByTextIndex(
                 textIndex = textIndex,
                 offset = index,
                 ignoreCustomFiltering = ignoreCustomFiltering,
@@ -315,7 +315,7 @@ internal class EditorSpan(
         return index to null
     }
 
-    fun getRichSpanListByTextRange(
+    fun getEditorSpanListByTextRange(
         searchTextRange: TextRange,
         offset: Int = 0,
     ): Pair<Int, List<EditorSpan>> {
@@ -329,7 +329,7 @@ internal class EditorSpan(
             editorSpanList.add(this)
 
         children.fastForEach { editorSpan ->
-            val result = editorSpan.getRichSpanListByTextRange(
+            val result = editorSpan.getEditorSpanListByTextRange(
                 searchTextRange = searchTextRange,
                 offset = index,
             )
