@@ -22,6 +22,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        init {
+            System.loadLibrary("infrs")
+        }
+    }
     private val settingsViewModel: SettingViewModel by viewModels()
 
     @Inject
