@@ -1,111 +1,57 @@
-plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hiltAndroid)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.baselineprofile)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.googleServices)
-}
+name: Android APK CI
 
-android {
-    namespace = "com.cloudsurfe.jellienotes"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
-    defaultConfig {
-        applicationId = "com.cloudsurfe.jellienotes"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    buildTypes {
-        getByName("debug"){
-            signingConfig = signingConfigs.getByName("debug")
-        }
-        getByName("release"){
-            isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("debug")
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
-    }
-    kotlinOptions {
-        jvmTarget = libs.versions.javaVersion.get()
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-}
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17' # 从您的 libs.versions.toml 确认 javaVersion = "17"
+        distribution: 'temurin'
+        cache: gradle
 
-dependencies {
-    // Core Android & Jetpack
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
 
-    // Jetpack Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        cmdline-tools-version: 'latest'
+        # 根据您的 libs.versions.toml: compileSdk = "36"
+        # buildToolsVersion 未明确定义，兼容版本使用 36.0.0
+        packages: |
+          - platforms;android-36
+          - build-tools;36.0.0
+          - platform-tools
+          # 您的项目未显示使用 NDK，此行保持注释
+          # - ndk;23.1.7779620
+        accept-android-sdk-licenses: true
 
-    // Material Icons for Compose
-    implementation(libs.androidx.compose.material.iconsExtended)
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-    // Debug tools for Compose
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
 
-    // Testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-
-    // Dependency Injection
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-
-    // DataStore
-    implementation(libs.datastore.preferences)
-
-    // Splash Screen
-    implementation(libs.androidx.core.splashscreen)
-
-    // Performance & Baseline Profiles
-    implementation(libs.androidx.profileinstaller)
-    baselineProfile(project(":baselineprofile"))
-
-    // Jetpack Navigation 3
-    implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
-    implementation(libs.androidx.material3.adaptive.navigation3)
-
-    // Kotlinx Serialization
-    implementation(libs.kotlinx.serialization.core)
-    implementation(libs.kotlinx.serialization.json)
-
-    // Firebase
-    implementation(platform(libs.google.firebase.bom))
-    implementation(libs.google.firebase.analytics)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.google.auth)
-    implementation(libs.androidx.credentials)
-    implementation(libs.androidx.credentials.play.services.auth)
-    implementation(libs.googleid)
-}
+    - name: Upload debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug.apk
+        # **您最终的确认点：请确保此路径与您的项目实际 APK 输出路径完全一致**
+        path: app/build/outputs/apk/debug/app-debug.apk
