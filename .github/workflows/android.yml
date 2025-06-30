@@ -21,8 +21,6 @@ jobs:
         distribution: 'temurin' # 推荐使用 Temurin 分发版
         cache: gradle # 启用 Gradle 缓存，可以显著加速后续构建
 
-    ---
-
     - name: Cache Gradle packages # 步骤3: 缓存 Gradle 依赖，避免每次都重新下载
       uses: actions/cache@v4
       with:
@@ -30,8 +28,6 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-
-    ---
 
     - name: Set up Android SDK # 步骤4: 设置 Android SDK 环境，这是编译 APK 的核心！
       uses: android-actions/setup-android@v3 # 检查 GitHub Marketplace 确认此 Action 的最新主版本，目前推荐 v3
@@ -45,8 +41,6 @@ jobs:
           # ndk;23.1.7779620
         accept-android-sdk-licenses: true # 自动接受所有 Android SDK 许可证，防止构建中断
 
-    ---
-
     - name: Grant execute permission for gradlew # 步骤5: 为 Gradle Wrapper 脚本添加执行权限
       run: chmod +x gradlew
 
@@ -56,8 +50,6 @@ jobs:
       # 注意：编译 Release 版本通常还需要处理签名密钥和密码，这会涉及 GitHub Secrets
       run: ./gradlew assembleDebug
 
-    ---
-
     - name: Upload debug APK # 步骤7: 将编译好的 APK 文件作为工作流产物上传
       uses: actions/upload-artifact@v4
       with:
@@ -66,4 +58,3 @@ jobs:
         # 标准的 Debug APK 路径通常是 'app/build/outputs/apk/debug/app-debug.apk'
         # 如果您的项目是多模块的，路径可能不同，请仔细检查并修改
         path: app/build/outputs/apk/debug/app-debug.apk
-        
