@@ -43,12 +43,14 @@ jobs:
         fi
         
         export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+        chmod +x "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
 
         yes | sdkmanager --licenses
 
         sdkmanager "platforms;android-36"
         sdkmanager "build-tools;36.0.0"
         sdkmanager "platform-tools"
+        sdkmanager "ndk;23.1.7779620"
         
         
     - name: Grant execute permission for gradlew
