@@ -1,0 +1,57 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    # 新增：缓存 Gradle packages，提高构建速度
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    # 新增：设置 Android SDK 环境，这是编译APK的关键
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v20 # 使用这个Action来安装SDK
+      with:
+        api-level: 34 # **重要：请根据你的项目compileSdk版本修改**
+        build-tools: 34.0.0 # **重要：请根据你的项目buildToolsVersion版本修改**
+        # 如果你的项目使用了NDK，可以取消下面这行的注释并指定NDK版本
+        # ndk: 23.1.7779620
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    # 修改：执行Gradle任务以编译Debug APK
+    # 如果需要编译Release APK，请将 assembleDebug 改为 assembleRelease
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
+
+    # 新增：上传编译好的APK文件作为工作流产物
+    - name: Upload debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug.apk # 上传后的文件名
+        # **重要：请根据你的项目实际APK输出路径修改**
+        # 通常Debug APK的路径是 app/build/outputs/apk/debug/app-debug.apk
+        # Release APK的路径是 app/build/outputs/apk/release/app-release.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
