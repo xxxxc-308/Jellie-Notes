@@ -38,8 +38,6 @@ jobs:
           - platforms;android-34
           - build-tools;34.0.0
           - platform-tools
-          # 如果您的项目使用了 NDK (Native Development Kit)，请在这里添加对应的行，例如:
-          # - ndk;23.1.7779620
         accept-android-sdk-licenses: true
 
     - name: Grant execute permission for gradlew
