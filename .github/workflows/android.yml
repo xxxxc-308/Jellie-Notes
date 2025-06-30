@@ -2,59 +2,53 @@ name: Android APK CI
 
 on:
   push:
-    branches: [ "master" ] # 当代码推送到 master 分支时触发
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ] # 当向 master 分支发起 Pull Request 时触发
+    branches: [ "master" ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest # 在最新的 Ubuntu 环境上运行
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code # 步骤1: 检出您的代码
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17 # 步骤2: 设置 Java 开发工具包 (推荐使用 JDK 17 或更高版本)
+    - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '17' # 根据您的项目需求选择合适的 Java 版本
-        distribution: 'temurin' # 推荐使用 Temurin 分发版
-        cache: gradle # 启用 Gradle 缓存，可以显著加速后续构建
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
 
-    - name: Cache Gradle packages # 步骤3: 缓存 Gradle 依赖，避免每次都重新下载
+    - name: Cache Gradle packages
       uses: actions/cache@v4
       with:
-        path: ~/.gradle/caches # 缓存路径
+        path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
 
     - name: Set up Android SDK # 步骤4: 设置 Android SDK 环境，这是编译 APK 的核心！
-      uses: android-actions/setup-android@v3 # 检查 GitHub Marketplace 确认此 Action 的最新主版本，目前推荐 v3
+      uses: android-actions/setup-android@v3
       with:
-        # 使用新的 'packages' 参数来安装 SDK 组件
+        cmdline-tools-version: 'latest' # 明确指定使用最新版命令行工具
         packages: |
           platforms;android-34 # **重要：请根据您的项目 compileSdk 版本修改此值 (例如: android-33, android-34)**
           build-tools;34.0.0   # **重要：请根据您的项目 buildToolsVersion 版本修改此值 (例如: 33.0.0, 34.0.0)**
-          platform-tools # 推荐安装平台工具
+          platform-tools
           # 如果您的项目使用了 NDK (Native Development Kit)，请取消下面这行的注释并指定 NDK 版本
           # ndk;23.1.7779620
-        accept-android-sdk-licenses: true # 自动接受所有 Android SDK 许可证，防止构建中断
+        accept-android-sdk-licenses: true
 
-    - name: Grant execute permission for gradlew # 步骤5: 为 Gradle Wrapper 脚本添加执行权限
+    - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build debug APK # 步骤6: 编译 Debug 版本的 APK 文件
-      # 这会执行 Gradle 的 assembleDebug 任务，生成可安装的 APK 文件
-      # 如果您需要编译 Release 版本的 APK (通常用于发布)，请将 assembleDebug 改为 assembleRelease
-      # 注意：编译 Release 版本通常还需要处理签名密钥和密码，这会涉及 GitHub Secrets
+    - name: Build debug APK
       run: ./gradlew assembleDebug
 
-    - name: Upload debug APK # 步骤7: 将编译好的 APK 文件作为工作流产物上传
+    - name: Upload debug APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-debug.apk # 上传后在 GitHub Actions 界面上显示的文件名
-        # **重要：请根据您的项目实际 APK 输出路径修改此值**
-        # 标准的 Debug APK 路径通常是 'app/build/outputs/apk/debug/app-debug.apk'
-        # 如果您的项目是多模块的，路径可能不同，请仔细检查并修改
-        path: app/build/outputs/apk/debug/app-debug.apk
+        name: app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk # **重要：请根据您的项目实际APK输出路径修改此值**
