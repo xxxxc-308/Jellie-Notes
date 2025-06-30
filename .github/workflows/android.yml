@@ -29,16 +29,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
-    - name: Set up Android SDK # 步骤4: 设置 Android SDK 环境，这是编译 APK 的核心！
+    - name: Set up Android SDK
       uses: android-actions/setup-android@v3
       with:
-        cmdline-tools-version: 'latest' # 明确指定使用最新版命令行工具
+        cmdline-tools-version: 'latest'
         packages: |
-          platforms;android-34 # **重要：请根据您的项目 compileSdk 版本修改此值 (例如: android-33, android-34)**
-          build-tools;34.0.0   # **重要：请根据您的项目 buildToolsVersion 版本修改此值 (例如: 33.0.0, 34.0.0)**
+          platforms;android-34
+          build-tools;34.0.0
           platform-tools
-          # 如果您的项目使用了 NDK (Native Development Kit)，请取消下面这行的注释并指定 NDK 版本
-          # ndk;23.1.7779620
         accept-android-sdk-licenses: true
 
     - name: Grant execute permission for gradlew
@@ -51,4 +49,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug.apk
-        path: app/build/outputs/apk/debug/app-debug.apk # **重要：请根据您的项目实际APK输出路径修改此值**
+        path: app/build/outputs/apk/debug/app-debug.apk
